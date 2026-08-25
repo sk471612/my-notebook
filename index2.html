@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>나의 비밀 공책</title>
+    <style>
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: 'Malgun Gothic', sans-serif;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .notebook {
+            position: relative;
+            width: 950px;
+            min-height: 800px;
+            height: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            padding: 50px 50px 50px 85px;
+            background-image: linear-gradient(#e1e8ed 1px, transparent 1px);
+            background-size: 100% 32px;
+            line-height: 32px;
+            box-sizing: border-box;
+        }
+
+        .notebook::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 65px;
+            width: 2px;
+            height: 100%;
+            background-color: #ff8b8b;
+        }
+
+        .holes {
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: 40px;
+            width: 20px;
+            background-image: radial-gradient(circle 10px at 10px 10px, #121212 99%, transparent 100%);
+            background-size: 20px 160px;
+            background-repeat: repeat-y;
+        }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            height: 32px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 26px;
+            line-height: 32px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .batch-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+            padding: 3px 10px;
+            cursor: pointer;
+            color: #e74c3c;
+            border-color: #feb2b2;
+            background-color: #fff5f5;
+        }
+        .batch-btn:hover {
+            background-color: #fed7d7;
+        }
+
+        .search-box {
+            height: 32px;
+            margin-bottom: 16px;
+        }
+        .search-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px dashed #a0aec0;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+            height: 32px;
+            color: #4a5568;
+        }
+
+        .memo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .memo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #333;
+            min-height: 32px;
+            gap: 10px;
+        }
+
+        .memo-checkbox {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: #e74c3c;
+            flex-shrink: 0;
+        }
+
+        .memo-content {
+            cursor: pointer;
+            flex: 1;
+            font-size: 19px;
+            line-height: 32px;
+            min-height: 32px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-width: 0; /* flex 자식의 overflow 작성을 위한 설정 */
+        }
+
+        /* 글자 서식 클래스 */
+        .size-s { font-size: 15px !important; }
+        .size-m { font-size: 19px !important; }
+        .size-l { font-size: 25px !important; font-weight: bold !important; }
+        
+        .style-red-ul { 
+            text-decoration: underline #e74c3c 2px !important; 
+            text-underline-offset: 4px !important; 
+        }
+        
+        .hl-y { background-color: #fff176 !important; border-radius: 2px; padding: 0 2px; }
+        .hl-g { background-color: #a5d6a7 !important; border-radius: 2px; padding: 0 2px; }
+        .hl-p { background-color: #ef9a9a !important; border-radius: 2px; padding: 0 2px; }
+
+        .edit-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+        }
+        .edit-editor {
+            flex: 1;
+            border-bottom: 2px solid #3498db;
+            outline: none;
+            height: 32px;
+            line-height: 32px;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            min-width: 0;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0.6;
+            padding: 0 5px;
+            flex-shrink: 0;
+        }
+        .delete-btn:hover { opacity: 1; }
+
+        /* 한 줄 고정 레이아웃 */
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 8px;
+            min-width: 0;
+        }
+
+        .memo-editor {
+            flex: 1;
+            border: none;
+            border-bottom: 1px solid #cbd5e1;
+            background: transparent;
+            font-size: 19px;
+            outline: none;
+            height: 32px;
+            line-height: 32px;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            min-width: 0;
+        }
+        .memo-editor::-webkit-scrollbar, .edit-editor::-webkit-scrollbar {
+            display: none; /* 작성 중 스크롤바 감추기 */
+        }
+        .memo-editor:empty:before {
+            content: attr(placeholder);
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        .inline-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f8fafc;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0; /* 툴바 줄어듦 방지 */
+            height: 30px;
+        }
+
+        .tool-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 12px;
+            padding: 2px 6px;
+            cursor: pointer;
+            color: #475569;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        .tool-btn:hover { background: #f1f5f9; }
+        .tool-btn.clear-btn {
+            background: #fff5f5;
+            border-color: #feb2b2;
+            color: #c53030;
+        }
+        .tool-btn.clear-btn:hover { background: #fed7d7; }
+
+        .add-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+        .add-btn:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+
+    <div class="notebook">
+        <div class="holes"></div>
+
+        <div class="header-area">
+            <h1>📝 나의 비밀 공책</h1>
+            <div class="action-btns">
+                <button class="batch-btn" onclick="deleteSelectedMemos()">☑️ 선택 삭제</button>
+                <button class="batch-btn" onclick="clearAllMemos()">🗑️ 전체 삭제</button>
+            </div>
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 공책 내용 검색..." oninput="renderMemos()">
+        </div>
+
+        <ul id="memoList" class="memo-list"></ul>
+
+        <!-- 작성 입력창과 고정 툴바 -->
+        <div class="input-row" id="inputLine">
+            <div id="memoInput" class="memo-editor" contenteditable="true" placeholder="작성할 내용을 입력하세요..."></div>
+            <div class="inline-toolbar">
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-l');">크게</button>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-m');">보통</button>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-s');">작게</button>
+                <span style="color:#ccc;">|</span>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-y');">🟨</button>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-g');">🟩</button>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-p');">🟥</button>
+                <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');" title="형광펜 지우기">🧹</button>
+                <span style="color:#ccc;">|</span>
+                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('style-red-ul');"><span style="color:#e74c3c; text-decoration:underline;">밑줄</span></button>
+                <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');" title="밑줄 지우기">🧹</button>
+                <button class="tool-btn add-btn" onclick="addMemo()">작성 완료</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEditingIndex = -1;
+
+        document.addEventListener("DOMContentLoaded", loadMemos);
+
+        document.getElementById("memoInput").addEventListener("keydown", function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                addMemo();
+            }
+        });
+
+        function applyStyle(className) {
+            const selection = window.getSelection();
+            if (!selection.rangeCount || selection.isCollapsed) return;
+
+            const range = selection.getRangeAt(0);
+
+            const span = document.createElement("span");
+            span.className = className;
+            span.textContent = range.toString();
+
+            range.deleteContents();
+            range.insertNode(span);
+            
+            selection.removeAllRanges();
+        }
+
+        function clearStyle(type) {
+            const selection = window.getSelection();
+            if (!selection.rangeCount || selection.isCollapsed) return;
+
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer.parentElement;
+
+            if (container && container.tagName === 'SPAN') {
+                if (type === 'highlight' && (container.classList.contains('hl-y') || container.classList.contains('hl-g') || container.classList.contains('hl-p'))) {
+                    removeSpanKeepText(container);
+                } else if (type === 'underline' && container.classList.contains('style-red-ul')) {
+                    removeSpanKeepText(container);
+                }
+            } else {
+                const selectedSpans = container.querySelectorAll('span');
+                selectedSpans.forEach(span => {
+                    if (selection.containsNode(span, true)) {
+                        if (type === 'highlight' && (span.classList.contains('hl-y') || span.classList.contains('hl-g') || span.classList.contains('hl-p'))) {
+                            removeSpanKeepText(span);
+                        } else if (type === 'underline' && span.classList.contains('style-red-ul')) {
+                            removeSpanKeepText(span);
+                        }
+                    }
+                });
+            }
+            selection.removeAllRanges();
+        }
+
+        function removeSpanKeepText(spanElement) {
+            const textNode = document.textContent || spanElement.textContent;
+            spanElement.parentNode.replaceChild(document.createTextNode(textNode), spanElement);
+        }
+
+        function addMemo() {
+            if (currentEditingIndex !== -1) {
+                saveEdit(currentEditingIndex);
+            }
+
+            const input = document.getElementById("memoInput");
+            let htmlContent = input.innerHTML;
+            
+            if (!htmlContent || htmlContent === '<br>') return;
+
+            htmlContent = htmlContent.replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
+                                     .replace(/<p>/gi, '<br>').replace(/<\/p>/gi, '');
+
+            const lines = htmlContent.split(/<br\s*[\/]?>/gi);
+            const memos = getSavedMemos();
+
+            lines.forEach(line => {
+                const cleanedLine = line.trim();
+                memos.push(cleanedLine === '' || cleanedLine === '&nbsp;' ? '&nbsp;' : cleanedLine);
+            });
+
+            localStorage.setItem("myMemos", JSON.stringify(memos));
+
+            input.innerHTML = "";
+            renderMemos();
+        }
+
+        function deleteMemo(index) {
+            const memos = getSavedMemos();
+            memos.splice(index, 1);
+            localStorage.setItem("myMemos", JSON.stringify(memos));
+            
+            if (currentEditingIndex === index) {
+                currentEditingIndex = -1;
+            }
+            renderMemos();
+        }
+
+        function deleteSelectedMemos() {
+            const checkboxes = document.querySelectorAll(".memo-checkbox:checked");
+            if (checkboxes.length === 0) {
+                alert("삭제할 항목을 선택해주세요.");
+                return;
+            }
+
+            if (!confirm(`선택한 ${checkboxes.length}개 항목을 삭제하시겠습니까?`)) return;
+
+            const indexesToDelete = Array.from(checkboxes).map(cb => parseInt(cb.dataset.index));
+            let memos = getSavedMemos();
+
+            indexesToDelete.sort((a, b) => b - a);
+            indexesToDelete.forEach(index => {
+                memos.splice(index, 1);
+            });
+
+            localStorage.setItem("myMemos", JSON.stringify(memos));
+            currentEditingIndex = -1;
+            renderMemos();
+        }
+
+        function clearAllMemos() {
+            const memos = getSavedMemos();
+            if (memos.length === 0) {
+                alert("삭제할 메모가 없습니다.");
+                return;
+            }
+
+            if (confirm("모든 메모를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.")) {
+                localStorage.removeItem("myMemos");
+                currentEditingIndex = -1;
+                renderMemos();
+            }
+        }
+
+        function editMemo(index) {
+            if (currentEditingIndex === index) return;
+
+            if (currentEditingIndex !== -1) {
+                saveEdit(currentEditingIndex);
+            }
+
+            currentEditingIndex = index;
+            const memos = getSavedMemos();
+            const li = document.getElementById(`memo-${index}`);
+            
+            if (!li) return;
+
+            const displayValue = (memos[index] === '&nbsp;') ? '' : memos[index];
+
+            li.innerHTML = `
+                <div class="edit-box">
+                    <div class="edit-editor" id="editInput-${index}" contenteditable="true">${displayValue}</div>
+                    <div class="inline-toolbar">
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-l');">크게</button>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-m');">보통</button>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-s');">작게</button>
+                        <span style="color:#ccc;">|</span>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-y');">🟨</button>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-g');">🟩</button>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-p');">🟥</button>
+                        <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');" title="형광펜 지우기">🧹</button>
+                        <span style="color:#ccc;">|</span>
+                        <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('style-red-ul');"><span style="color:#e74c3c; text-decoration:underline;">밑줄</span></button>
+                        <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');" title="밑줄 지우기">🧹</button>
+                    </div>
+                    <button class="delete-btn" onclick="saveEdit(${index})">✔</button>
+                </div>
+            `;
+
+            const editInput = document.getElementById(`editInput-${index}`);
+            editInput.focus();
+            
+            editInput.addEventListener("keydown", function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    saveEdit(index);
+                }
+            });
+        }
+
+        function saveEdit(index) {
+            const editInput = document.getElementById(`editInput-${index}`);
+            if (!editInput) return;
+            
+            let newHtml = editInput.innerHTML.trim();
+            const memos = getSavedMemos();
+
+            if (!newHtml || newHtml === '<br>') {
+                newHtml = '&nbsp;';
+            }
+
+            memos[index] = newHtml;
+            localStorage.setItem("myMemos", JSON.stringify(memos));
+
+            currentEditingIndex = -1;
+            renderMemos();
+        }
+
+        function getSavedMemos() {
+            const saved = localStorage.getItem("myMemos");
+            if (!saved) return [];
+            return JSON.parse(saved);
+        }
+
+        function renderMemos() {
+            const list = document.getElementById("memoList");
+            list.innerHTML = "";
+            const memos = getSavedMemos();
+            const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+            memos.forEach((itemHtml, index) => {
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = itemHtml;
+                const plainText = tempDiv.textContent || tempDiv.innerText || "";
+
+                if (keyword && !plainText.toLowerCase().includes(keyword)) {
+                    return;
+                }
+
+                const li = document.createElement("li");
+                li.className = "memo-item";
+                li.id = `memo-${index}`;
+                
+                if (index === currentEditingIndex) {
+                    const displayValue = (itemHtml === '&nbsp;') ? '' : itemHtml;
+                    li.innerHTML = `
+                        <div class="edit-box">
+                            <div class="edit-editor" id="editInput-${index}" contenteditable="true">${displayValue}</div>
+                            <div class="inline-toolbar">
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-l');">크게</button>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-m');">보통</button>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-s');">작게</button>
+                                <span style="color:#ccc;">|</span>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-y');">🟨</button>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-g');">🟩</button>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-p');">🟥</button>
+                                <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');" title="형광펜 지우기">🧹</button>
+                                <span style="color:#ccc;">|</span>
+                                <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('style-red-ul');"><span style="color:#e74c3c; text-decoration:underline;">밑줄</span></button>
+                                <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');" title="밑줄 지우기">🧹</button>
+                            </div>
+                            <button class="delete-btn" onclick="saveEdit(${index})">✔</button>
+                        </div>
+                    `;
+                    setTimeout(() => {
+                        const editInput = document.getElementById(`editInput-${index}`);
+                        if (editInput) editInput.focus();
+                    }, 0);
+                } else {
+                    const isBlank = (itemHtml === '&nbsp;');
+                    const contentDisplay = isBlank ? '' : itemHtml;
+                    
+                    li.innerHTML = `
+                        <input type="checkbox" class="memo-checkbox" data-index="${index}">
+                        <div class="memo-content" onclick="editMemo(${index})" title="클릭해서 수정">${contentDisplay}</div>
+                        <button class="delete-btn" onclick="deleteMemo(${index})">✕</button>
+                    `;
+                }
+                
+                list.appendChild(li);
+            });
+
+            const inputLine = document.getElementById("inputLine");
+            if (keyword) {
+                inputLine.style.display = "none";
+            } else {
+                inputLine.style.display = "flex";
+            }
+        }
+
+        function loadMemos() {
+            renderMemos();
+        }
+    </script>
+
+</body>
+</html>
