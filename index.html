@@ -232,8 +232,11 @@
             justify-content: space-between;
             align-items: center;
             color: #333;
-            min-height: 32px;
+            height: 32px;
+            line-height: 32px;
             gap: 10px;
+            margin: 0;
+            padding: 0;
         }
 
         .memo-checkbox {
@@ -249,11 +252,20 @@
             flex: 1;
             font-size: 19px;
             line-height: 32px;
-            min-height: 32px;
+            height: 32px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             min-width: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .memo-content div, .memo-content p, .edit-editor div, .edit-editor p {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 32px !important;
+            height: 32px !important;
         }
 
         /* 서식 클래스 */
@@ -280,10 +292,12 @@
             width: 100%;
             border-bottom: 2px solid #3498db;
             outline: none;
-            min-height: 32px;
+            height: 32px;
             line-height: 32px;
             font-size: 19px;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         .delete-btn {
@@ -298,7 +312,7 @@
         }
         .delete-btn:hover { opacity: 1; }
 
-        /* 입력 영역 구조 개선 */
+        /* 입력 영역 구조 */
         .input-row {
             display: flex;
             flex-direction: column;
@@ -314,10 +328,12 @@
             background: transparent;
             font-size: 19px;
             outline: none;
-            min-height: 32px;
+            height: 32px;
             line-height: 32px;
             color: #2c3e50;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         .memo-editor:empty:before {
             content: attr(placeholder);
@@ -402,7 +418,7 @@
 
         <ul id="memoList" class="memo-list"></ul>
 
-        <!-- 입력 부분: 윗줄 입력창, 아랫줄 서식버튼 -->
+        <!-- 입력 부분 -->
         <div class="input-row" id="inputLine">
             <div id="memoInput" class="memo-editor" contenteditable="true" placeholder="작성할 내용을 입력하세요..."></div>
             <div class="toolbar-container">
