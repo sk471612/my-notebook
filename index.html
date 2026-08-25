@@ -18,9 +18,9 @@
             gap: 20px;
         }
 
-        /* 왼쪽 공책 목록 사이드바 */
+        /* 왼쪽 사이드바 */
         .sidebar {
-            width: 220px;
+            width: 200px;
             background: #1e1e1e;
             border-radius: 10px;
             padding: 20px;
@@ -39,7 +39,7 @@
         }
 
         .sidebar h2 {
-            font-size: 18px;
+            font-size: 16px;
             margin: 0;
             color: #e2e8f0;
             cursor: pointer;
@@ -49,9 +49,7 @@
             flex: 1;
         }
 
-        .sidebar h2:hover {
-            color: #3498db;
-        }
+        .sidebar h2:hover { color: #3498db; }
 
         .edit-title-btn {
             background: none;
@@ -60,10 +58,6 @@
             cursor: pointer;
             font-size: 13px;
             padding: 0 0 0 5px;
-        }
-
-        .edit-title-btn:hover {
-            color: #fff;
         }
 
         .book-list {
@@ -87,14 +81,8 @@
             transition: background 0.2s;
         }
 
-        .book-item:hover {
-            background: #3a3a3a;
-        }
-
-        .book-item.active {
-            background: #3498db;
-            font-weight: bold;
-        }
+        .book-item:hover { background: #3a3a3a; }
+        .book-item.active { background: #3498db; font-weight: bold; }
 
         .book-name {
             white-space: nowrap;
@@ -113,9 +101,7 @@
             display: none;
         }
 
-        .book-item:hover .book-del-btn {
-            display: inline;
-        }
+        .book-item:hover .book-del-btn { display: inline; }
 
         .add-book-btn {
             width: 100%;
@@ -126,67 +112,32 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .add-book-btn:hover {
-            background: #219150;
-        }
-
-        /* 오른쪽 공책 메인 화면 */
-        .notebook {
-            position: relative;
-            width: 750px;
-            min-height: 800px;
-            height: auto;
+        /* 메인 공책 바인더 (2쪽) */
+        .notebook-container {
+            width: 1100px;
             background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-            padding: 50px 50px 50px 85px;
-            background-image: linear-gradient(#e1e8ed 1px, transparent 1px);
-            background-size: 100% 32px;
-            line-height: 32px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            padding: 30px 40px;
             box-sizing: border-box;
         }
 
-        .notebook::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 65px;
-            width: 2px;
-            height: 100%;
-            background-color: #ff8b8b;
-        }
-
-        .holes {
-            position: absolute;
-            left: 20px;
-            top: 40px;
-            bottom: 40px;
-            width: 20px;
-            background-image: radial-gradient(circle 10px at 10px 10px, #121212 99%, transparent 100%);
-            background-size: 20px 160px;
-            background-repeat: repeat-y;
-        }
-
-        .header-area {
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            height: 32px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 12px;
         }
 
         h1 {
             margin: 0;
             color: #2c3e50;
-            font-size: 24px;
-            line-height: 32px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 450px;
+            font-size: 22px;
         }
 
         .action-btns {
@@ -195,31 +146,98 @@
         }
 
         .batch-btn {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
             border-radius: 4px;
             font-size: 13px;
-            padding: 3px 10px;
+            padding: 5px 12px;
             cursor: pointer;
             color: #e74c3c;
-            border-color: #feb2b2;
-            background-color: #fff5f5;
         }
         .batch-btn:hover { background-color: #fed7d7; }
 
-        .search-box {
-            height: 32px;
-            margin-bottom: 16px;
-        }
         .search-input {
             width: 100%;
             border: none;
             border-bottom: 1px dashed #a0aec0;
             background: transparent;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             height: 32px;
-            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        /* 2쪽 펼침 컨트롤 및 레이아웃 */
+        .page-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            padding: 6px 16px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-nav-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #334155;
+            font-weight: bold;
+        }
+        .page-nav-btn:hover:not(:disabled) { background: #e2e8f0; }
+        .page-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .page-indicator {
+            font-size: 14px;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        .pages-wrapper {
+            display: flex;
+            gap: 0;
+            position: relative;
+            background: #fff;
+            min-height: 480px;
+        }
+
+        /* 중앙 바인더 링 */
+        .pages-wrapper::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, #cbd5e1, #94a3b8, #cbd5e1);
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .page {
+            flex: 1;
+            padding: 10px 25px;
+            background-image: linear-gradient(#e1e8ed 1px, transparent 1px);
+            background-size: 100% 32px;
+            line-height: 32px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .page-left {
+            border-right: 1px solid #e2e8f0;
+            padding-right: 35px;
+        }
+
+        .page-right {
+            padding-left: 35px;
         }
 
         .memo-list {
@@ -227,22 +245,20 @@
             padding: 0;
             margin: 0;
         }
+
         .memo-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #333;
             height: 32px;
             line-height: 32px;
-            gap: 10px;
-            margin: 0;
-            padding: 0;
+            gap: 8px;
         }
 
         .memo-checkbox {
             cursor: pointer;
-            width: 16px;
-            height: 16px;
+            width: 15px;
+            height: 15px;
             accent-color: #e74c3c;
             flex-shrink: 0;
         }
@@ -250,54 +266,33 @@
         .memo-content {
             cursor: pointer;
             flex: 1;
-            font-size: 19px;
+            font-size: 18px;
             line-height: 32px;
             height: 32px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             min-width: 0;
-            margin: 0;
-            padding: 0;
         }
 
-        .memo-content div, .memo-content p, .edit-editor div, .edit-editor p {
-            margin: 0 !important;
-            padding: 0 !important;
-            line-height: 32px !important;
-            height: 32px !important;
-        }
-
-        /* 서식 클래스 */
-        .size-s { font-size: 15px !important; }
-        .size-m { font-size: 19px !important; }
-        .size-l { font-size: 25px !important; font-weight: bold !important; }
+        /* 서식 스타일 */
+        .size-s { font-size: 14px !important; }
+        .size-m { font-size: 18px !important; }
+        .size-l { font-size: 22px !important; font-weight: bold !important; }
         
-        .style-red-ul { 
-            text-decoration: underline #e74c3c 2px !important; 
-            text-underline-offset: 4px !important; 
-        }
-        
+        .style-red-ul { text-decoration: underline #e74c3c 2px !important; text-underline-offset: 4px !important; }
         .hl-y { background-color: #fff176 !important; border-radius: 2px; padding: 0 2px; }
         .hl-g { background-color: #a5d6a7 !important; border-radius: 2px; padding: 0 2px; }
         .hl-p { background-color: #ef9a9a !important; border-radius: 2px; padding: 0 2px; }
 
-        .edit-box {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            width: 100%;
-        }
+        .edit-box { display: flex; align-items: center; gap: 8px; width: 100%; }
         .edit-editor {
-            width: 100%;
+            flex: 1;
             border-bottom: 2px solid #3498db;
             outline: none;
             height: 32px;
             line-height: 32px;
-            font-size: 19px;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            font-size: 18px;
         }
 
         .delete-btn {
@@ -307,45 +302,41 @@
             cursor: pointer;
             font-size: 14px;
             opacity: 0.6;
-            padding: 0 5px;
             flex-shrink: 0;
         }
         .delete-btn:hover { opacity: 1; }
 
-        /* 입력 영역 구조 */
-        .input-row {
+        /* 하단 입력 영역 */
+        .bottom-input-area {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #f1f5f9;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            margin-top: 16px;
+            gap: 10px;
         }
 
         .memo-editor {
             width: 100%;
-            border: none;
-            border-bottom: 1px solid #cbd5e1;
-            background: transparent;
-            font-size: 19px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 8px 12px;
+            background: #fafafa;
+            font-size: 16px;
             outline: none;
-            height: 32px;
-            line-height: 32px;
-            color: #2c3e50;
+            min-height: 40px;
+            line-height: 24px;
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
         .memo-editor:empty:before {
             content: attr(placeholder);
             color: #a0aec0;
-            font-size: 16px;
         }
 
         .toolbar-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
         }
 
         .inline-toolbar {
@@ -366,60 +357,65 @@
             padding: 3px 8px;
             cursor: pointer;
             color: #475569;
-            line-height: 1.2;
-            white-space: nowrap;
         }
         .tool-btn:hover { background: #f1f5f9; }
-        .tool-btn.clear-btn {
-            background: #fff5f5;
-            border-color: #feb2b2;
-            color: #c53030;
-        }
-        .tool-btn.clear-btn:hover { background: #fed7d7; }
+        .tool-btn.clear-btn { background: #fff5f5; border-color: #feb2b2; color: #c53030; }
 
         .add-btn {
             background: #3498db;
             color: white;
             border: none;
             font-weight: bold;
-            padding: 5px 14px;
-            height: 32px;
+            padding: 6px 18px;
+            border-radius: 6px;
+            cursor: pointer;
         }
         .add-btn:hover { background: #2980b9; }
     </style>
 </head>
 <body>
 
-    <!-- 왼쪽 사이드바 (공책 목록) -->
+    <!-- 사이드바 -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2 id="appTitle" onclick="changeAppTitle()" title="클릭하여 타이틀 변경">📚 내 공책 목록</h2>
-            <button class="edit-title-btn" onclick="changeAppTitle()" title="타이틀 수정">✏️</button>
+            <h2 id="appTitle" onclick="changeAppTitle()">📚 내 공책 목록</h2>
+            <button class="edit-title-btn" onclick="changeAppTitle()">✏️</button>
         </div>
         <ul id="bookList" class="book-list"></ul>
         <button class="add-book-btn" onclick="createNewBook()">+ 새 공책 만들기</button>
     </div>
 
-    <!-- 오른쪽 메인 공책 -->
-    <div class="notebook">
-        <div class="holes"></div>
-
-        <div class="header-area">
+    <!-- 2쪽 메인 공책 -->
+    <div class="notebook-container">
+        <div class="top-bar">
             <h1 id="notebookTitle">📝 기본 공책</h1>
             <div class="action-btns">
                 <button class="batch-btn" onclick="deleteSelectedMemos()">☑️ 선택 삭제</button>
                 <button class="batch-btn" onclick="clearAllMemos()">🗑️ 전체 삭제</button>
             </div>
         </div>
-        
-        <div class="search-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 공책 내용 검색..." oninput="renderMemos()">
+
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 내용 검색..." oninput="renderMemos()">
+
+        <!-- 페이지 이동 네비게이션 -->
+        <div class="page-navigation">
+            <button id="prevPageBtn" class="page-nav-btn" onclick="prevPage()">〈 이전 페이지</button>
+            <span id="pageIndicator" class="page-indicator">Page 1-2</span>
+            <button id="nextPageBtn" class="page-nav-btn" onclick="nextPage()">다음 페이지 〉</button>
         </div>
 
-        <ul id="memoList" class="memo-list"></ul>
+        <!-- 좌우 2쪽 펼침 영역 -->
+        <div class="pages-wrapper">
+            <div class="page page-left">
+                <ul id="memoListLeft" class="memo-list"></ul>
+            </div>
+            <div class="page page-right">
+                <ul id="memoListRight" class="memo-list"></ul>
+            </div>
+        </div>
 
-        <!-- 입력 부분 -->
-        <div class="input-row" id="inputLine">
+        <!-- 하단 작성 영역 -->
+        <div class="bottom-input-area" id="inputLine">
             <div id="memoInput" class="memo-editor" contenteditable="true" placeholder="작성할 내용을 입력하세요..."></div>
             <div class="toolbar-container">
                 <div class="inline-toolbar">
@@ -430,12 +426,12 @@
                     <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-y');">🟨</button>
                     <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-g');">🟩</button>
                     <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-p');">🟥</button>
-                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');" title="형광펜 지우기">🧹</button>
+                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');">🧹</button>
                     <span style="color:#ccc;">|</span>
                     <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('style-red-ul');"><span style="color:#e74c3c; text-decoration:underline;">밑줄</span></button>
-                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');" title="밑줄 지우기">🧹</button>
+                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');">🧹</button>
                 </div>
-                <button class="tool-btn add-btn" onclick="addMemo()">작성 완료</button>
+                <button class="add-btn" onclick="addMemo()">작성 완료</button>
             </div>
         </div>
     </div>
@@ -443,19 +439,29 @@
     <script>
         let currentEditingIndex = -1;
         let currentBookId = "default";
+        let currentPageGroup = 0; // 0: 1-2쪽, 1: 3-4쪽 ...
+        const LINES_PER_PAGE = 15; // 1개 쪽당 최대 줄 수 (좌우 합쳐서 30줄)
+        const LINES_PER_SPREAD = LINES_PER_PAGE * 2; // 펼친 2쪽당 30줄
 
         document.addEventListener("DOMContentLoaded", function() {
             loadAppTitle();
             initBooks();
+
             document.getElementById("memoInput").addEventListener("keydown", function(e) {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     addMemo();
                 }
             });
+
+            // 좌우 방향키로 페이지 넘기기
+            document.addEventListener("keydown", function(e) {
+                if (document.activeElement.id === 'memoInput' || document.activeElement.classList.contains('edit-editor')) return;
+                if (e.key === 'ArrowLeft') prevPage();
+                if (e.key === 'ArrowRight') nextPage();
+            });
         });
 
-        // 앱 타이틀 관리
         function loadAppTitle() {
             const savedTitle = localStorage.getItem("myNotebook_appTitle");
             if (savedTitle) {
@@ -475,12 +481,9 @@
             }
         }
 
-        // 공책 데이터 관리
         function getAllBooks() {
             const saved = localStorage.getItem("myNotebook_books");
-            if (!saved) {
-                return { "default": { title: "기본 공책", memos: [] } };
-            }
+            if (!saved) return { "default": { title: "기본 공책", memos: [] } };
             return JSON.parse(saved);
         }
 
@@ -507,6 +510,7 @@
             saveAllBooks(books);
 
             currentBookId = newId;
+            currentPageGroup = 0;
             renderBookList();
             renderMemos();
         }
@@ -514,6 +518,7 @@
         function switchBook(bookId) {
             currentBookId = bookId;
             currentEditingIndex = -1;
+            currentPageGroup = 0;
             renderBookList();
             renderMemos();
         }
@@ -521,20 +526,16 @@
         function deleteBook(bookId, event) {
             event.stopPropagation();
             const books = getAllBooks();
-            const bookKeys = Object.keys(books);
-
-            if (bookKeys.length <= 1) {
+            if (Object.keys(books).length <= 1) {
                 alert("최소 하나의 공책은 남아있어야 합니다.");
                 return;
             }
 
-            if (confirm(`'${books[bookId].title}' 공책을 삭제하시겠습니까? 안의 내용도 모두 삭제됩니다.`)) {
+            if (confirm(`'${books[bookId].title}' 공책을 삭제하시겠습니까?`)) {
                 delete books[bookId];
                 saveAllBooks(books);
-
-                if (currentBookId === bookId) {
-                    currentBookId = Object.keys(books)[0];
-                }
+                if (currentBookId === bookId) currentBookId = Object.keys(books)[0];
+                currentPageGroup = 0;
                 renderBookList();
                 renderMemos();
             }
@@ -550,7 +551,6 @@
                 const li = document.createElement("li");
                 li.className = `book-item ${id === currentBookId ? 'active' : ''}`;
                 li.onclick = () => switchBook(id);
-
                 li.innerHTML = `
                     <span class="book-name">📖 ${book.title}</span>
                     <button class="book-del-btn" onclick="deleteBook('${id}', event)">✕</button>
@@ -574,7 +574,7 @@
             }
         }
 
-        // 서식 적용 관련 함수들
+        // 서식 기능
         function applyStyle(className) {
             const selection = window.getSelection();
             if (!selection.rangeCount || selection.isCollapsed) return;
@@ -611,14 +611,14 @@
             spanElement.parentNode.replaceChild(textNode, spanElement);
         }
 
-        // 메모 추가 / 삭제 / 수정
+        // 메모 추가 (2쪽 차면 자동으로 마지막 페이지로 이동 후 추가)
         function addMemo() {
             if (currentEditingIndex !== -1) {
                 saveEdit(currentEditingIndex);
             }
 
             const input = document.getElementById("memoInput");
-            let htmlContent = input.innerHTML;
+            let htmlContent = input.innerHTML.trim();
             
             if (!htmlContent || htmlContent === '<br>') return;
 
@@ -635,6 +635,11 @@
 
             saveMemos(memos);
             input.innerHTML = "";
+
+            // 새로 추가 후 자동으로 맨 마지막 작성 페이지로 이동
+            currentPageGroup = Math.floor((memos.length - 1) / LINES_PER_SPREAD);
+            if (currentPageGroup < 0) currentPageGroup = 0;
+
             renderMemos();
         }
 
@@ -642,10 +647,12 @@
             const memos = getSavedMemos();
             memos.splice(index, 1);
             saveMemos(memos);
-            
-            if (currentEditingIndex === index) {
-                currentEditingIndex = -1;
-            }
+            if (currentEditingIndex === index) currentEditingIndex = -1;
+
+            // 페이지 범위 벗어남 방지
+            const maxPage = Math.max(0, Math.ceil(memos.length / LINES_PER_SPREAD) - 1);
+            if (currentPageGroup > maxPage) currentPageGroup = maxPage;
+
             renderMemos();
         }
 
@@ -662,36 +669,32 @@
             let memos = getSavedMemos();
 
             indexesToDelete.sort((a, b) => b - a);
-            indexesToDelete.forEach(index => {
-                memos.splice(index, 1);
-            });
+            indexesToDelete.forEach(index => memos.splice(index, 1));
 
             saveMemos(memos);
             currentEditingIndex = -1;
+
+            const maxPage = Math.max(0, Math.ceil(memos.length / LINES_PER_SPREAD) - 1);
+            if (currentPageGroup > maxPage) currentPageGroup = maxPage;
+
             renderMemos();
         }
 
         function clearAllMemos() {
             const memos = getSavedMemos();
-            if (memos.length === 0) {
-                alert("삭제할 메모가 없습니다.");
-                return;
-            }
+            if (memos.length === 0) return;
 
             if (confirm("현재 공책의 모든 메모를 삭제하시겠습니까?")) {
                 saveMemos([]);
                 currentEditingIndex = -1;
+                currentPageGroup = 0;
                 renderMemos();
             }
         }
 
         function editMemo(index) {
             if (currentEditingIndex === index) return;
-
-            if (currentEditingIndex !== -1) {
-                saveEdit(currentEditingIndex);
-            }
-
+            if (currentEditingIndex !== -1) saveEdit(currentEditingIndex);
             currentEditingIndex = index;
             renderMemos();
         }
@@ -703,83 +706,115 @@
             let newHtml = editInput.innerHTML.trim();
             const memos = getSavedMemos();
 
-            if (!newHtml || newHtml === '<br>') {
-                newHtml = '&nbsp;';
-            }
+            if (!newHtml || newHtml === '<br>') newHtml = '&nbsp;';
 
             memos[index] = newHtml;
             saveMemos(memos);
-
             currentEditingIndex = -1;
             renderMemos();
         }
 
+        function prevPage() {
+            if (currentPageGroup > 0) {
+                currentPageGroup--;
+                renderMemos();
+            }
+        }
+
+        function nextPage() {
+            const memos = getSavedMemos();
+            const maxPageGroup = Math.ceil(memos.length / LINES_PER_SPREAD);
+            if (currentPageGroup < maxPageGroup) {
+                currentPageGroup++;
+                renderMemos();
+            }
+        }
+
+        function createMemoLi(itemHtml, index) {
+            const li = document.createElement("li");
+            li.className = "memo-item";
+            li.id = `memo-${index}`;
+
+            if (index === currentEditingIndex) {
+                const displayValue = (itemHtml === '&nbsp;') ? '' : itemHtml;
+                li.innerHTML = `
+                    <div class="edit-box">
+                        <div class="edit-editor" id="editInput-${index}" contenteditable="true">${displayValue}</div>
+                        <button class="delete-btn" onclick="saveEdit(${index})" style="font-size:16px;">✔</button>
+                    </div>
+                `;
+                setTimeout(() => {
+                    const editInput = document.getElementById(`editInput-${index}`);
+                    if (editInput) editInput.focus();
+                }, 0);
+            } else {
+                const isBlank = (itemHtml === '&nbsp;');
+                const contentDisplay = isBlank ? '' : itemHtml;
+                li.innerHTML = `
+                    <input type="checkbox" class="memo-checkbox" data-index="${index}">
+                    <div class="memo-content" onclick="editMemo(${index})" title="클릭해서 수정">${contentDisplay}</div>
+                    <button class="delete-btn" onclick="deleteMemo(${index})">✕</button>
+                `;
+            }
+            return li;
+        }
+
         function renderMemos() {
-            const list = document.getElementById("memoList");
-            list.innerHTML = "";
+            const leftList = document.getElementById("memoListLeft");
+            const rightList = document.getElementById("memoListRight");
+            leftList.innerHTML = "";
+            rightList.innerHTML = "";
+
             const memos = getSavedMemos();
             const keyword = document.getElementById("searchInput").value.toLowerCase();
 
-            memos.forEach((itemHtml, index) => {
-                const tempDiv = document.createElement("div");
-                tempDiv.innerHTML = itemHtml;
-                const plainText = tempDiv.textContent || tempDiv.innerText || "";
-
-                if (keyword && !plainText.toLowerCase().includes(keyword)) {
-                    return;
-                }
-
-                const li = document.createElement("li");
-                li.className = "memo-item";
-                li.id = `memo-${index}`;
-                
-                if (index === currentEditingIndex) {
-                    const displayValue = (itemHtml === '&nbsp;') ? '' : itemHtml;
-                    li.innerHTML = `
-                        <div class="edit-box">
-                            <div class="edit-editor" id="editInput-${index}" contenteditable="true">${displayValue}</div>
-                            <div class="toolbar-container">
-                                <div class="inline-toolbar">
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-l');">크게</button>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-m');">보통</button>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('size-s');">작게</button>
-                                    <span style="color:#ccc;">|</span>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-y');">🟨</button>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-g');">🟩</button>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('hl-p');">🟥</button>
-                                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('highlight');" title="형광펜 지우기">🧹</button>
-                                    <span style="color:#ccc;">|</span>
-                                    <button class="tool-btn" onmousedown="event.preventDefault(); applyStyle('style-red-ul');"><span style="color:#e74c3c; text-decoration:underline;">밑줄</span></button>
-                                    <button class="tool-btn clear-btn" onmousedown="event.preventDefault(); clearStyle('underline');" title="밑줄 지우기">🧹</button>
-                                </div>
-                                <button class="delete-btn" onclick="saveEdit(${index})" style="font-size:16px; font-weight:bold;">✔ 저장</button>
-                            </div>
-                        </div>
-                    `;
-                    setTimeout(() => {
-                        const editInput = document.getElementById(`editInput-${index}`);
-                        if (editInput) editInput.focus();
-                    }, 0);
-                } else {
-                    const isBlank = (itemHtml === '&nbsp;');
-                    const contentDisplay = isBlank ? '' : itemHtml;
-                    
-                    li.innerHTML = `
-                        <input type="checkbox" class="memo-checkbox" data-index="${index}">
-                        <div class="memo-content" onclick="editMemo(${index})" title="클릭해서 수정">${contentDisplay}</div>
-                        <button class="delete-btn" onclick="deleteMemo(${index})">✕</button>
-                    `;
-                }
-                
-                list.appendChild(li);
-            });
-
-            const inputLine = document.getElementById("inputLine");
+            // 검색 중일 때는 전체 검색 결과 노출
             if (keyword) {
-                inputLine.style.display = "none";
-            } else {
-                inputLine.style.display = "flex";
+                document.getElementById("pageIndicator").innerText = "검색 결과";
+                document.getElementById("prevPageBtn").disabled = true;
+                document.getElementById("nextPageBtn").disabled = true;
+
+                let visibleIndex = 0;
+                memos.forEach((itemHtml, index) => {
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = itemHtml;
+                    if (!tempDiv.textContent.toLowerCase().includes(keyword)) return;
+
+                    const li = createMemoLi(itemHtml, index);
+                    if (visibleIndex < LINES_PER_PAGE) leftList.appendChild(li);
+                    else rightList.appendChild(li);
+                    visibleIndex++;
+                });
+                return;
             }
+
+            // 페이지 수 표시 업데이트
+            const leftPageNum = currentPageGroup * 2 + 1;
+            const rightPageNum = currentPageGroup * 2 + 2;
+            document.getElementById("pageIndicator").innerText = `Page ${leftPageNum} - ${rightPageNum}`;
+
+            // 버튼 활성화/비활성화
+            document.getElementById("prevPageBtn").disabled = (currentPageGroup === 0);
+            
+            const totalPageGroups = Math.ceil(memos.length / LINES_PER_SPREAD);
+            // 메모가 딱 다 찼거나 작성 중인 경우에도 다음 페이지 넘김 가능
+            document.getElementById("nextPageBtn").disabled = (currentPageGroup > totalPageGroups);
+
+            // 현재 페이지 그룹에 해당하는 메목 항목 가져오기
+            const startIndex = currentPageGroup * LINES_PER_SPREAD;
+            const endIndex = startIndex + LINES_PER_SPREAD;
+            const currentMemos = memos.slice(startIndex, endIndex);
+
+            currentMemos.forEach((itemHtml, relativeIndex) => {
+                const actualIndex = startIndex + relativeIndex;
+                const li = createMemoLi(itemHtml, actualIndex);
+
+                if (relativeIndex < LINES_PER_PAGE) {
+                    leftList.appendChild(li);
+                } else {
+                    rightList.appendChild(li);
+                }
+            });
         }
     </script>
 </body>
